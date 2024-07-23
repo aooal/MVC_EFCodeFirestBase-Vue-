@@ -1,0 +1,81 @@
+﻿@using MVC_EFCodeFirstWithVueBase.ModelsDto
+@model UserDto
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_ModalLayout.cshtml"; ;
+}
+@{
+    <div class="row m-5">
+        <h5 class="text-left mb-5">Add User</h5>
+        <form id="editUserForm" method="post" asp-controller="Users" asp-action="Create" enctype="multipart/form-data">
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-lable">Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-lable">Email</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-lable">Password</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="Password" type="password" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-4 col-form-lable">Image</label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="ImageFile" type="file" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 d-grid">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+                <div class="offset-sm-4 col-sm-4 d-grid">
+                    <button type="submit" class="btn btn-primary" id="userSubmit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+}
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#editUserForm').on('submit', function (event) {
+                event.preventDefault();
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#myModal').modal('hide');
+                            location.reload();
+                        } else {
+                            $('#modalBody').html(response);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                        $('.modal-content').html(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

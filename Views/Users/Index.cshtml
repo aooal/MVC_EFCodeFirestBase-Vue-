@@ -1,0 +1,89 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "Users Page";
+}
+
+<h2 class="text-center mb-5">Users</h2>
+<div>
+    <div class="row mb-5">
+        <div id="app">
+            <div class="col text-right mb-3 ">
+                <button class="btn btn-primary col-1" style="margin-right: 30px;" v-on:click="openModal()" data-bs-dismiss="modal">Add</button>
+            </div>
+
+            <!-- Modal HTML -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">User</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Image</th>
+                        <th>CreatedTime</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.Id</td>
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                            <td><img src="@user.ImageFileName" width="100" /></td>
+                            <td>@user.CreatedTime.ToString("yyyy/MM/dd HH:mm")</td>
+                            <td style="white-space:nowrap">
+                                <button class="btn btn-secondary btn-sm m-2" v-on:click="openModal('@user.Id')">Edit</button>
+
+                                <a class="btn btn-danger btn-sm" asp-controller="Users" asp-action="Delete" asp-route-uid="@user.Id"
+                                   onclick="return confirm('確認刪除嗎?')">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    <script>
+
+        const app = Vue.createApp({
+            data() {
+                return {
+
+                };
+            },
+            methods: {
+                openModal(userId) {
+                    $('#myModal').modal('show');
+                    const url = userId
+                        ? '@Url.Action("_Edit", "Users")?uid=' + userId
+                        : '@Url.Action("_Create", "Users")';
+
+                    $.get(url, function (data) {
+                        $('#modalBody').html(data);
+                    });
+                },
+            },
+
+        });
+
+        app.mount('#app');
+    </script>
+}
