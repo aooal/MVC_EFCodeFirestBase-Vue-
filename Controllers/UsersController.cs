@@ -9,15 +9,24 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
     {
         private readonly AppDbContext _context;
         private readonly FileService _fileService;
-
         public UsersController(AppDbContext context, FileService fileService) 
         {
             _context = context;
             _fileService = fileService;
         }
-        public IActionResult Index()
+        public IActionResult Index(string searchTerm)
         {
             var users = _context.Users.Where(u => u.Active == true).OrderByDescending(u => u.CreatedTime).ToList();
+            if (!string.IsNullOrEmpty(searchTerm))
+             {
+                users = users
+                .Where
+                (
+                    u => (u.Name ?? string.Empty).Contains(searchTerm)
+                    || (u.Email ?? string.Empty).Contains(searchTerm)
+                )
+                .ToList();
+            }
             return View(users);
         }
         #region Create
@@ -42,7 +51,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             {
                 return PartialView("_Create", userDto);
             }
-            await userDto.SaveAsync(_context);
+            await userDto.SaveAsync(_context, _fileService);
 
             return Json(new { success = true });
         }
@@ -76,7 +85,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             {
                 return PartialView("_Edit",userDto);
             }
-            var result = await userDto.SaveAsync(_context);
+            var result = await userDto.SaveAsync(_context, _fileService);
             if (!result) return NotFound();
             return Json(new { success = true });
         }

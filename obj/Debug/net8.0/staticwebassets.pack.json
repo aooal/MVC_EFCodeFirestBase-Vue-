@@ -41,6 +41,14 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\c6a32ad182c5496c890047de2c11e129",
+      "PackagePath": "staticwebassets\\img\\users"
+    },
+    {
+      "Id": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\fc394d5c884545229e10c992767c99e9.jpg",
+      "PackagePath": "staticwebassets\\img\\users\\fc394d5c884545229e10c992767c99e9.jpg"
+    },
+    {
       "Id": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\js\\024b32cc7bf399b1a847.woff2",
       "PackagePath": "staticwebassets\\js\\024b32cc7bf399b1a847.woff2"
     },

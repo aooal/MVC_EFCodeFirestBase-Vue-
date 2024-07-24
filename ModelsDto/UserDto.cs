@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using MVC_EFCodeFirstWithVueBase.Models;
 using MVC_EFCodeFirstWithVueBase.Services;
 using System;
@@ -21,7 +22,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
         public string? Password { get; set; }
         public string? ImagePath { get; set; }
         public string? CreatedTimeFormat { get; set; }
-        public async Task<bool> SaveAsync(AppDbContext dbContext)
+        public async Task<bool> SaveAsync(AppDbContext dbContext, FileService fileService)
         {
             if (string.IsNullOrEmpty(Password))
             {
@@ -48,7 +49,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
             {
                 model = new User
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = Guid.NewGuid().ToString("N"),
                     Name = Name,
                     Email = Email,
                     PasswordHash = passwordHash,
@@ -58,16 +59,20 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
                 };
                 dbContext.Users.Add(model);
             }
-
-            // Handle file saving (if any)
             if (ImageFile != null)
             {
-                // Example: Save file logic
-                var filePath = Path.Combine("Uploads", ImageFile.FileName);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                var filePath = $"{model.Id}.jpg";
+                var fullFilePath = Path.Combine(fileService.Environment.WebRootPath, "img", "users", filePath);
+                var directory = Path.GetDirectoryName(fullFilePath);
+                if (!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+                using (var stream = new FileStream(fullFilePath, FileMode.Create))
                 {
                     await ImageFile.CopyToAsync(stream);
                 }
+                model.ImageFileName = filePath ;
             }
 
             await dbContext.SaveChangesAsync();

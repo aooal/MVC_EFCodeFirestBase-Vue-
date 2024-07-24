@@ -277,3 +277,4 @@ C:\Users\taboi\OneDrive\文件\MVC_EFCodeFirstWithVueBase\obj\Debug\net8.0\refin
 C:\Users\taboi\OneDrive\文件\MVC_EFCodeFirstWithVueBase\obj\Debug\net8.0\MVC_EFCodeFirstWithVueBase.pdb
 C:\Users\taboi\OneDrive\文件\MVC_EFCodeFirstWithVueBase\obj\Debug\net8.0\MVC_EFCodeFirstWithVueBase.genruntimeconfig.cache
 C:\Users\taboi\OneDrive\文件\MVC_EFCodeFirstWithVueBase\obj\Debug\net8.0\ref\MVC_EFCodeFirstWithVueBase.dll
+C:\Users\taboi\OneDrive\文件\MVC_EFCodeFirstWithVueBase\obj\Debug\net8.0\MVC_EFCodeFirstWithVueBase.sourcelink.json
