@@ -70,7 +70,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
-                ImagePath = user.ImageFileName,
+                ImagePath = user.ImageFileName ,
                 CreatedTimeFormat = user.CreatedTime.ToString("yyyy/MM/dd HH:mm"),
                 Password = ""                             
             };

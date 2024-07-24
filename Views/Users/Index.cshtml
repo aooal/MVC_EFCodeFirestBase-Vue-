@@ -53,11 +53,12 @@
                 <tbody>
                     @foreach (var user in Model)
                     {
+                        var filepath = user.ImageFileName ?? "default-avatar.jpg";
                         <tr>
                             <td>@user.Id</td>
                             <td>@user.Name</td>
                             <td>@user.Email</td>
-                            <td><img src="/img/users/@user.ImageFileName" width="100" /></td>
+                            <td><img src="/img/users/@filepath" width="100" /></td>
                             <td>@user.CreatedTime.ToString("yyyy/MM/dd HH:mm")</td>
                             <td style="white-space:nowrap">
                                 <button class="btn btn-secondary btn-sm m-2" v-on:click="openModal('@user.Id')">Edit</button>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "bW48nZ0e0wTP8999sqTu5dDGXOeHo71pcUOE/jCOeOk=",
+  "Hash": "tA2BREckOp5Mt9maoiuBadmz/FbpZIR5CpNSG692WBU=",
   "Source": "MVC_EFCodeFirstWithVueBase",
   "BasePath": "_content/MVC_EFCodeFirstWithVueBase",
   "Mode": "Default",
@@ -226,12 +226,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\c6a32ad182c5496c890047de2c11e129",
+      "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\398b3353449b4ea1a3fae076ac0a77ac.jpg",
       "SourceId": "MVC_EFCodeFirstWithVueBase",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\",
       "BasePath": "_content/MVC_EFCodeFirstWithVueBase",
-      "RelativePath": "img/users/c6a32ad182c5496c890047de2c11e129",
+      "RelativePath": "img/users/398b3353449b4ea1a3fae076ac0a77ac.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -242,7 +242,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\users\\c6a32ad182c5496c890047de2c11e129"
+      "OriginalItemSpec": "wwwroot\\img\\users\\398b3353449b4ea1a3fae076ac0a77ac.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\default-avatar.jpg",
+      "SourceId": "MVC_EFCodeFirstWithVueBase",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\",
+      "BasePath": "_content/MVC_EFCodeFirstWithVueBase",
+      "RelativePath": "img/users/default-avatar.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\users\\default-avatar.jpg"
     },
     {
       "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\fc394d5c884545229e10c992767c99e9.jpg",

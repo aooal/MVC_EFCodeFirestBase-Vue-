@@ -15,8 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-    <Folder Include="wwwroot\img\users\" />
     <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
