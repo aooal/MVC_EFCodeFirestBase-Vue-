@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MVC_EFCodeFirstWithVueBase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e79a1cc98ee7caa0ab204cc07376c0f57429667c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ce197f6db66a3db22b578b25aecf037c89a2196")]
 [assembly: System.Reflection.AssemblyProductAttribute("MVC_EFCodeFirstWithVueBase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MVC_EFCodeFirstWithVueBase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

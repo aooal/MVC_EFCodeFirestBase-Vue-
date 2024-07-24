@@ -10,7 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var conn = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(conn);
 });
-builder.Services.AddScoped<FileService>();
+builder.Services.AddScoped<IFileService, FileService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

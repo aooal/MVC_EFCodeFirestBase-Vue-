@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pniOR+QA7SHzokAG6cFgyS+uuL2JOVmmQEwcaOWUvHw=",
+  "Hash": "b+vlFIqwImaT7GXW9+VVCeEzy84B6s6HVsCX3PiBFPw=",
   "Source": "MVC_EFCodeFirstWithVueBase",
   "BasePath": "_content/MVC_EFCodeFirstWithVueBase",
   "Mode": "Default",
@@ -281,6 +281,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\users\\4242fe4744f146f5ae8982bfaf09fe5b.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\67175dda364648feaab7b9030bab065a.jpg",
+      "SourceId": "MVC_EFCodeFirstWithVueBase",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\",
+      "BasePath": "_content/MVC_EFCodeFirstWithVueBase",
+      "RelativePath": "img/users/67175dda364648feaab7b9030bab065a.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\users\\67175dda364648feaab7b9030bab065a.jpg"
     },
     {
       "Identity": "C:\\Users\\taboi\\OneDrive\\文件\\MVC_EFCodeFirstWithVueBase\\wwwroot\\img\\users\\default-avatar.jpg",

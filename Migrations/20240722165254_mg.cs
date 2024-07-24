@@ -5,7 +5,7 @@
 namespace MVC_EFCodeFirstWithVueBase.Migrations
 {
     /// <inheritdoc />
-    public partial class mg : Migration
+    public partial class Mg : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -13,7 +13,7 @@ namespace MVC_EFCodeFirstWithVueBase.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20240722165254_mg")]
-    partial class mg
+    partial class Mg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

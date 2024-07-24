@@ -8,8 +8,8 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
     public class UsersController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly FileService _fileService;
-        public UsersController(AppDbContext context, FileService fileService) 
+        private readonly IFileService _fileService;
+        public UsersController(AppDbContext context, IFileService fileService) 
         {
             _context = context;
             _fileService = fileService;

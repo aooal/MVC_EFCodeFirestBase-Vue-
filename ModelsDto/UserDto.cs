@@ -22,7 +22,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
         public string? Password { get; set; }
         public string? ImagePath { get; set; }
         public string? CreatedTimeFormat { get; set; }
-        public async Task<bool> SaveAsync(AppDbContext dbContext, FileService fileService)
+        public async Task<bool> SaveAsync(AppDbContext dbContext, IFileService fileService)
         {
             if (string.IsNullOrEmpty(Password))
             {
@@ -62,17 +62,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
             if (ImageFile != null)
             {
                 var filePath = $"{model.Id}.jpg";
-                var fullFilePath = Path.Combine(fileService.Environment.WebRootPath, "img", "users", filePath);
-                var directory = Path.GetDirectoryName(fullFilePath);
-                if (!Directory.Exists(directory))
-                {
-                    Directory.CreateDirectory(directory);
-                }
-                using (var stream = new FileStream(fullFilePath, FileMode.Create))
-                {
-                    await ImageFile.CopyToAsync(stream);
-                }
-                model.ImageFileName = filePath ;
+                model.ImageFileName = await fileService.HandleFileAsync(ImageFile, "img", "users", filePath);
             }
 
             await dbContext.SaveChangesAsync();

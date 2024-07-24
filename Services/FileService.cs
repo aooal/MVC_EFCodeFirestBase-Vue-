@@ -1,6 +1,6 @@
 ﻿namespace MVC_EFCodeFirstWithVueBase.Services
 {
-    public class FileService
+    public class FileService : IFileService
     {
         public readonly IWebHostEnvironment Environment;
         private readonly string[] _acceptedImgTypes = { ".jpg", ".jpeg", ".png", ".gif" };
@@ -9,6 +9,20 @@
         public FileService(IWebHostEnvironment environment)
         {
             Environment = environment;
+        }
+        public async Task<string> HandleFileAsync(IFormFile selectedfile, string fileTypeFolderName, string tableName, string filePath)
+        {
+            var fullFilePath = Path.Combine(Environment.WebRootPath, "img", "users", filePath);
+            var directory = Path.GetDirectoryName(fullFilePath);
+            if (!Directory.Exists(directory) && !string.IsNullOrEmpty(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+            using (var stream = new FileStream(fullFilePath, FileMode.Create))
+            {
+                await selectedfile.CopyToAsync(stream);
+            }
+            return filePath;
         }
 
         public bool IsImageFile(IFormFile file)
