@@ -9,14 +9,14 @@ using System.Text;
 
 namespace MVC_EFCodeFirstWithVueBase.ModelsDto
 {
-    public class UserDto
+    public class UserDto : User
     {
         [MaxLength(50)]
-        public string? Id { get; set; }
+        public override string? Id { get; set; }
         [Required, MaxLength(50)]
-        public string? Name { get; set; }
+        public override string? Name { get; set; }
         [Required, MaxLength(50)]
-        public string? Email { get; set; }
+        public override string? Email { get; set; }
         public IFormFile? ImageFile { get; set; }
         [Required, MaxLength(50)]
         public string? Password { get; set; }
