@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Hosting;
 using MVC_EFCodeFirstWithVueBase.Models;
+using MVC_EFCodeFirstWithVueBase.Repository;
 using MVC_EFCodeFirstWithVueBase.Services;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -22,7 +24,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
         public string? Password { get; set; }
         public string? ImagePath { get; set; }
         public string? CreatedTimeFormat { get; set; }
-        public async Task<bool> SaveAsync(AppDbContext dbContext, IFileService fileService)
+        public async Task<bool> SaveAsync(IDatabaseHelper dbHelper, IFileService fileService)
         {
             if (string.IsNullOrEmpty(Password))
             {
@@ -35,9 +37,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
             User model;
             if (!string.IsNullOrEmpty(Id))
             {
-                model = await dbContext.Users
-                            .Where(u => u.Id == Id)
-                            .FirstAsync();
+                model = await dbHelper.GetByIdAsync<User>(Id);
                 if (model == null) return false;
 
                 model.Name = Name;
@@ -57,24 +57,23 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
                     CreatedTime = DateTime.Now,
                     Active = true
                 };
-                dbContext.Users.Add(model);
+                await dbHelper.AddAsync(model);
             }
             if (ImageFile != null)
             {
                 var filePath = $"{model.Id}.jpg";
                 model.ImageFileName = await fileService.HandleFileAsync(ImageFile, "img", "users", filePath);
             }
-
-            await dbContext.SaveChangesAsync();
+            await dbHelper.UpdateAsync(model);
             return true;
         }
 
-        public async Task<bool> DeleteAsync(AppDbContext dbContext, string uid)
+        public async Task<bool> DeleteAsync(IDatabaseHelper dbHelper, string uid)
         {
-            var user = await GetUserAsyncById(dbContext, uid);
+            var user = await dbHelper.GetByIdAsync<User>(uid);
             if (user == null) return false;
             user.Active = false;
-            await dbContext.SaveChangesAsync();
+            await dbHelper.UpdateAsync(user);
             return true;
         }
 

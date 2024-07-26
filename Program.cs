@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MVC_EFCodeFirstWithVueBase.Services;
+using MVC_EFCodeFirstWithVueBase.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var conn = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(conn);
 });
+builder.Services.AddScoped<IDatabaseHelper, DatabaseHelper>();
+
 builder.Services.AddScoped<IFileService, FileService>();
 var app = builder.Build();
 

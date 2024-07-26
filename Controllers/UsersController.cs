@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC_EFCodeFirstWithVueBase.Models;
 using MVC_EFCodeFirstWithVueBase.ModelsDto;
+using MVC_EFCodeFirstWithVueBase.Repository;
 using MVC_EFCodeFirstWithVueBase.Services;
  
 namespace MVC_EFCodeFirstWithVueBase.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IFileService _fileService;
-        public UsersController(AppDbContext context, IFileService fileService) 
+        private readonly IDatabaseHelper _databaseHelper;
+        public UsersController(AppDbContext context, IFileService fileService, IDatabaseHelper databaseHelper) 
         {
-            _context = context;
             _fileService = fileService;
+            _databaseHelper = databaseHelper;
         }
-        public IActionResult Index(string searchTerm)
+        public async Task<IActionResult> Index(string searchTerm)
         {
-            var users = _context.Users.Where(u => u.Active == true).OrderByDescending(u => u.CreatedTime).ToList();
+            var users = await _databaseHelper.GetAllAsync<User>();
             if (!string.IsNullOrEmpty(searchTerm))
              {
                 users = users
@@ -27,6 +28,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
                 )
                 .ToList();
             }
+            users = users.OrderByDescending(x => x.CreatedTime).Where(x => x.Active == true).ToList();
             return View(users);
         }
         #region Create
@@ -51,7 +53,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             {
                 return PartialView("_Create", userDto);
             }
-            await userDto.SaveAsync(_context, _fileService);
+            await userDto.SaveAsync(_databaseHelper, _fileService);
 
             return Json(new { success = true });
         }
@@ -60,7 +62,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
         #region Edit
         public async Task<IActionResult>_Edit(string uid)
         {
-            var user = await UserDto.GetUserAsyncById(_context, uid);
+            var user = await _databaseHelper.GetByIdAsync<User>(uid);
             if (user == null)
             {
                 return NotFound(); 
@@ -85,7 +87,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             {
                 return PartialView("_Edit",userDto);
             }
-            var result = await userDto.SaveAsync(_context, _fileService);
+            var result = await userDto.SaveAsync(_databaseHelper, _fileService);
             if (!result) return NotFound();
             return Json(new { success = true });
         }
@@ -95,7 +97,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
         public async Task<IActionResult> Delete(string uid)
         {
             var user = new UserDto();        
-            var result = await user.DeleteAsync(_context, uid);
+            var result = await user.DeleteAsync(_databaseHelper, uid);
             return RedirectToAction("Index", "Users");
         }
         #endregion
