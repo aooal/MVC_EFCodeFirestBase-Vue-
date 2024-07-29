@@ -24,7 +24,7 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
         public string? Password { get; set; }
         public string? ImagePath { get; set; }
         public string? CreatedTimeFormat { get; set; }
-        public async Task<bool> SaveAsync(IDatabaseHelper dbHelper, IFileService fileService)
+        public async Task<bool> SaveAsync(IDatabaseHelper dbHelper, IFileService fileService, CancellationToken token)
         {
             if (string.IsNullOrEmpty(Password))
             {
@@ -34,10 +34,10 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(Password, out passwordHash, out passwordSalt);
 
-            User model;
+            User? model;
             if (!string.IsNullOrEmpty(Id))
             {
-                model = await dbHelper.GetByIdAsync<User>(Id);
+                model = await dbHelper.GetByIdAsync<User>(Id, token);
                 if (model == null) return false;
 
                 model.Name = Name;
@@ -57,23 +57,23 @@ namespace MVC_EFCodeFirstWithVueBase.ModelsDto
                     CreatedTime = DateTime.Now,
                     Active = true
                 };
-                await dbHelper.AddAsync(model);
+                await dbHelper.AddAsync(model, token);
             }
             if (ImageFile != null)
             {
                 var filePath = $"{model.Id}.jpg";
-                model.ImageFileName = await fileService.HandleFileAsync(ImageFile, "img", "users", filePath);
+                model.ImageFileName = await fileService.HandleFileAsync(ImageFile, "img", "users", filePath, token);
             }
-            await dbHelper.UpdateAsync(model);
+            await dbHelper.UpdateAsync(model , token);
             return true;
         }
 
-        public async Task<bool> DeleteAsync(IDatabaseHelper dbHelper, string uid)
+        public async Task<bool> DeleteAsync(IDatabaseHelper dbHelper, string uid, CancellationToken token)
         {
-            var user = await dbHelper.GetByIdAsync<User>(uid);
+            var user = await dbHelper.GetByIdAsync<User>(uid, token);
             if (user == null) return false;
             user.Active = false;
-            await dbHelper.UpdateAsync(user);
+            await dbHelper.UpdateAsync(user , token);
             return true;
         }
 

@@ -15,9 +15,9 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             _fileService = fileService;
             _databaseHelper = databaseHelper;
         }
-        public async Task<IActionResult> Index(string searchTerm)
+        public async Task<IActionResult> Index(string searchTerm, CancellationToken token)
         {
-            var users = await _databaseHelper.GetAllAsync<User>();
+            var users = await _databaseHelper.GetAllAsync<User>(token);
             if (!string.IsNullOrEmpty(searchTerm))
              {
                 users = users
@@ -38,7 +38,7 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult>Create(UserDto userDto)
+        public async Task<IActionResult>Create(UserDto userDto, CancellationToken token)
         {
             
             if (userDto.ImageFile != null && !_fileService.IsImgFileSizeValid(userDto.ImageFile))
@@ -53,16 +53,16 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             {
                 return PartialView("_Create", userDto);
             }
-            await userDto.SaveAsync(_databaseHelper, _fileService);
+            await userDto.SaveAsync(_databaseHelper, _fileService, token);
 
             return Json(new { success = true });
         }
         #endregion
 
         #region Edit
-        public async Task<IActionResult>_Edit(string uid)
+        public async Task<IActionResult>_Edit(string uid, CancellationToken token)
         {
-            var user = await _databaseHelper.GetByIdAsync<User>(uid);
+            var user = await _databaseHelper.GetByIdAsync<User>(uid, token);
             if (user == null)
             {
                 return NotFound(); 
@@ -80,24 +80,24 @@ namespace MVC_EFCodeFirstWithVueBase.Controllers
             return PartialView("_Edit", userDto);
         }
         [HttpPost]
-        public async Task<IActionResult>Edit(string uid, UserDto userDto)
+        public async Task<IActionResult>Edit(string uid, UserDto userDto, CancellationToken token)
         {
             userDto.Id = uid;         
             if (!ModelState.IsValid)
             {
                 return PartialView("_Edit",userDto);
             }
-            var result = await userDto.SaveAsync(_databaseHelper, _fileService);
+            var result = await userDto.SaveAsync(_databaseHelper, _fileService, token);
             if (!result) return NotFound();
             return Json(new { success = true });
         }
         #endregion
 
         #region Delete
-        public async Task<IActionResult> Delete(string uid)
+        public async Task<IActionResult> Delete(string uid, CancellationToken token)
         {
             var user = new UserDto();        
-            var result = await user.DeleteAsync(_databaseHelper, uid);
+            await user.DeleteAsync(_databaseHelper, uid, token);
             return RedirectToAction("Index", "Users");
         }
         #endregion

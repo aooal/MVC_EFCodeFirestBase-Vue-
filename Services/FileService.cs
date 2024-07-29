@@ -10,7 +10,8 @@
         {
             Environment = environment;
         }
-        public async Task<string> HandleFileAsync(IFormFile selectedfile, string fileTypeFolderName, string tableName, string filePath)
+        public async Task<string> HandleFileAsync(IFormFile selectedfile, string fileTypeFolderName, string tableName,
+            string filePath, CancellationToken token)
         {
             var fullFilePath = Path.Combine(Environment.WebRootPath, "img", "users", filePath);
             var directory = Path.GetDirectoryName(fullFilePath);
@@ -20,7 +21,7 @@
             }
             using (var stream = new FileStream(fullFilePath, FileMode.Create))
             {
-                await selectedfile.CopyToAsync(stream);
+                await selectedfile.CopyToAsync(stream, token);
             }
             return filePath;
         }
